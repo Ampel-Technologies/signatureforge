@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  SignatureForge - Outlook Signature Add-In Manifest
+
+  IMPORTANT: Before deploying, replace ALL occurrences of alyssaagard
+  with your actual GitHub username (the one hosting the GitHub Pages site).
+
+  The expected hosting URL is:
+    https://alyssaagard.github.io/signatureforge/
+
+  The Id below MUST be a unique GUID per deployment.
+  Generate a new one if you fork this for another tenant:
+    PowerShell: [guid]::NewGuid()
+    macOS/Linux: uuidgen
+-->
+<OfficeApp
+  xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+  xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides/1.0"
+  xsi:type="MailApp">
+
+  <Id>fc488408-25b0-4d6c-a93a-53f0c674972b</Id>
+  <Version>1.0.0.0</Version>
+  <ProviderName>SignatureForge</ProviderName>
+  <DefaultLocale>en-US</DefaultLocale>
+  <DisplayName DefaultValue="SignatureForge" />
+  <Description DefaultValue="Centrally managed email signatures for Outlook on every device. Signatures are applied automatically at compose time, no user setup required." />
+  <IconUrl DefaultValue="https://alyssaagard.github.io/signatureforge/addin/icons/icon-64.png" />
+  <HighResolutionIconUrl DefaultValue="https://alyssaagard.github.io/signatureforge/addin/icons/icon-128.png" />
+  <SupportUrl DefaultValue="https://alyssaagard.github.io/signatureforge/" />
+
+  <AppDomains>
+    <AppDomain>https://alyssaagard.github.io</AppDomain>
+  </AppDomains>
+
+  <Hosts>
+    <Host Name="Mailbox" />
+  </Hosts>
+
+  <Requirements>
+    <Sets>
+      <Set Name="Mailbox" MinVersion="1.5" />
+    </Sets>
+  </Requirements>
+
+  <FormSettings>
+    <Form xsi:type="ItemRead">
+      <DesktopSettings>
+        <SourceLocation DefaultValue="https://alyssaagard.github.io/signatureforge/addin/commands.html" />
+        <RequestedHeight>250</RequestedHeight>
+      </DesktopSettings>
+    </Form>
+  </FormSettings>
+
+  <Permissions>ReadWriteItem</Permissions>
+  <Rule xsi:type="RuleCollection" Mode="Or">
+    <Rule xsi:type="ItemIs" ItemType="Message" FormType="Edit" />
+  </Rule>
+
+  <DisableEntityHighlighting>false</DisableEntityHighlighting>
+
+  <VersionOverrides
+    xmlns="http://schemas.microsoft.com/office/mailappversionoverrides"
+    xsi:type="VersionOverridesV1_0">
+
+    <VersionOverrides
+      xmlns="http://schemas.microsoft.com/office/mailappversionoverrides/1.1"
+      xsi:type="VersionOverridesV1_1">
+
+      <Requirements>
+        <bt:Sets DefaultMinVersion="1.10">
+          <bt:Set Name="Mailbox" />
+        </bt:Sets>
+      </Requirements>
+
+      <Hosts>
+        <Host xsi:type="MailHost">
+
+          <Runtimes>
+            <Runtime resid="WebViewRuntime.Url">
+              <Override type="javascript" resid="JSRuntime.Url" />
+            </Runtime>
+          </Runtimes>
+
+          <DesktopFormFactor>
+            <FunctionFile resid="Commands.Url" />
+
+            <ExtensionPoint xsi:type="LaunchEvent">
+              <LaunchEvents>
+                <LaunchEvent
+                  Type="OnNewMessageCompose"
+                  FunctionName="onNewMessageComposeHandler" />
+              </LaunchEvents>
+              <SourceLocation resid="WebViewRuntime.Url" />
+            </ExtensionPoint>
+          </DesktopFormFactor>
+
+          <MobileFormFactor>
+            <FunctionFile resid="Commands.Url" />
+
+            <ExtensionPoint xsi:type="LaunchEvent">
+              <LaunchEvents>
+                <LaunchEvent
+                  Type="OnNewMessageCompose"
+                  FunctionName="onNewMessageComposeHandler" />
+              </LaunchEvents>
+              <SourceLocation resid="WebViewRuntime.Url" />
+            </ExtensionPoint>
+          </MobileFormFactor>
+
+        </Host>
+      </Hosts>
+
+      <Resources>
+        <bt:Images>
+          <bt:Image id="Icon.16x16"
+            DefaultValue="https://alyssaagard.github.io/signatureforge/addin/icons/icon-16.png" />
+          <bt:Image id="Icon.32x32"
+            DefaultValue="https://alyssaagard.github.io/signatureforge/addin/icons/icon-32.png" />
+          <bt:Image id="Icon.80x80"
+            DefaultValue="https://alyssaagard.github.io/signatureforge/addin/icons/icon-80.png" />
+        </bt:Images>
+        <bt:Urls>
+          <bt:Url id="Commands.Url"
+            DefaultValue="https://alyssaagard.github.io/signatureforge/addin/commands.html" />
+          <bt:Url id="WebViewRuntime.Url"
+            DefaultValue="https://alyssaagard.github.io/signatureforge/addin/commands.html" />
+          <bt:Url id="JSRuntime.Url"
+            DefaultValue="https://alyssaagard.github.io/signatureforge/addin/launchevent.js" />
+        </bt:Urls>
+        <bt:ShortStrings>
+          <bt:String id="GroupLabel" DefaultValue="SignatureForge" />
+        </bt:ShortStrings>
+        <bt:LongStrings>
+          <bt:String id="Tooltip" DefaultValue="Apply your organization signature automatically." />
+        </bt:LongStrings>
+      </Resources>
+
+    </VersionOverrides>
+  </VersionOverrides>
+</OfficeApp>

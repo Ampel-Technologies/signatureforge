@@ -1,0 +1,6 @@
+{
+  "$schema": "./users.schema.json",
+  "version": 1,
+  "updated": "2026-05-12",
+  "users": []
+}
