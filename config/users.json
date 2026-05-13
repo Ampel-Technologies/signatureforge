@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "updated": "2026-05-13",
+  "users": [
+    {
+      "email": "onboarding@agardresearchassociates.org",
+      "template": "default",
+      "fields": {
+        "displayName": "Onboarding",
+        "pronouns": "",
+        "title": "HR Main",
+        "organization": "Agard Research Associates Inc.",
+        "email": "onboarding@agardresearchassociates.org",
+        "phone": "(732) 646-6497",
+        "website": "https://www.agardresearchassociates.org",
+        "address": ""
+      }
+    }
+  ]
+}
