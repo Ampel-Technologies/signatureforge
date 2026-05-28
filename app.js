@@ -694,7 +694,7 @@ function viewSettings() {
     <div class="panel" style="padding:var(--gap-md);">
       <h3 style="margin-top:0;font-family:var(--display);font-style:italic;font-weight:300;font-size:22px;">Deployment checklist</h3>
       <ol style="line-height:1.9;">
-        <li>Replace <span class="kbd">alyssaagard</span> in <span class="mono">manifest.xml</span> and <span class="mono">addin/launchevent.js</span>.</li>
+        <li>Replace <span class="kbd">Ampel-Technologies</span> in <span class="mono">manifest.xml</span> and <span class="mono">addin/launchevent.js</span>.</li>
         <li>In your repo settings, enable GitHub Pages on the <span class="mono">main</span> branch, root path.</li>
         <li>Wait for Pages to deploy (one to two minutes the first time).</li>
         <li>In Microsoft 365 admin center → Settings → Integrated apps → Upload custom app → upload the manifest.xml URL above.</li>

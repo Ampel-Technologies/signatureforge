@@ -2,11 +2,11 @@
 <!--
   SignatureForge - Outlook Signature Add-In Manifest
 
-  IMPORTANT: Before deploying, replace ALL occurrences of alyssaagard
+  IMPORTANT: Before deploying, replace ALL occurrences of Ampel-Technologies
   with your actual GitHub username (the one hosting the GitHub Pages site).
 
   The expected hosting URL is:
-    https://alyssaagard.github.io/signatureforge/
+    https://Ampel-Technologies.github.io/signatureforge/
 
   The Id below MUST be a unique GUID per deployment.
   Generate a new one if you fork this for another tenant:
@@ -26,12 +26,12 @@
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="SignatureForge" />
   <Description DefaultValue="Centrally managed email signatures for Outlook on every device. Signatures are applied automatically at compose time, no user setup required." />
-  <IconUrl DefaultValue="https://alyssaagard.github.io/signatureforge/addin/icons/icon-64.png" />
-  <HighResolutionIconUrl DefaultValue="https://alyssaagard.github.io/signatureforge/addin/icons/icon-128.png" />
-  <SupportUrl DefaultValue="https://alyssaagard.github.io/signatureforge/" />
+  <IconUrl DefaultValue="https://Ampel-Technologies.github.io/signatureforge/addin/icons/icon-64.png" />
+  <HighResolutionIconUrl DefaultValue="https://Ampel-Technologies.github.io/signatureforge/addin/icons/icon-128.png" />
+  <SupportUrl DefaultValue="https://Ampel-Technologies.github.io/signatureforge/" />
 
   <AppDomains>
-    <AppDomain>https://alyssaagard.github.io</AppDomain>
+    <AppDomain>https://Ampel-Technologies.github.io</AppDomain>
   </AppDomains>
 
   <Hosts>
@@ -47,7 +47,7 @@
   <FormSettings>
     <Form xsi:type="ItemRead">
       <DesktopSettings>
-        <SourceLocation DefaultValue="https://alyssaagard.github.io/signatureforge/addin/commands.html" />
+        <SourceLocation DefaultValue="https://Ampel-Technologies.github.io/signatureforge/addin/commands.html" />
         <RequestedHeight>250</RequestedHeight>
       </DesktopSettings>
     </Form>
@@ -115,19 +115,19 @@
       <Resources>
         <bt:Images>
           <bt:Image id="Icon.16x16"
-            DefaultValue="https://alyssaagard.github.io/signatureforge/addin/icons/icon-16.png" />
+            DefaultValue="https://Ampel-Technologies.github.io/signatureforge/addin/icons/icon-16.png" />
           <bt:Image id="Icon.32x32"
-            DefaultValue="https://alyssaagard.github.io/signatureforge/addin/icons/icon-32.png" />
+            DefaultValue="https://Ampel-Technologies.github.io/signatureforge/addin/icons/icon-32.png" />
           <bt:Image id="Icon.80x80"
-            DefaultValue="https://alyssaagard.github.io/signatureforge/addin/icons/icon-80.png" />
+            DefaultValue="https://Ampel-Technologies.github.io/signatureforge/addin/icons/icon-80.png" />
         </bt:Images>
         <bt:Urls>
           <bt:Url id="Commands.Url"
-            DefaultValue="https://alyssaagard.github.io/signatureforge/addin/commands.html" />
+            DefaultValue="https://Ampel-Technologies.github.io/signatureforge/addin/commands.html" />
           <bt:Url id="WebViewRuntime.Url"
-            DefaultValue="https://alyssaagard.github.io/signatureforge/addin/commands.html" />
+            DefaultValue="https://Ampel-Technologies.github.io/signatureforge/addin/commands.html" />
           <bt:Url id="JSRuntime.Url"
-            DefaultValue="https://alyssaagard.github.io/signatureforge/addin/launchevent.js" />
+            DefaultValue="https://Ampel-Technologies.github.io/signatureforge/addin/launchevent.js" />
         </bt:Urls>
         <bt:ShortStrings>
           <bt:String id="GroupLabel" DefaultValue="SignatureForge" />

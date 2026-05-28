@@ -22,10 +22,10 @@
 
 // === CONFIGURATION ==========================================================
 // The base URL where the config files are hosted.
-// IMPORTANT: replace alyssaagard with your actual GitHub handle
+// IMPORTANT: replace Ampel-Technologies with your actual GitHub handle
 // before deployment, OR leave it and Office will fail to load the add-in,
 // which is a useful sanity check.
-const CONFIG_BASE_URL = "https://alyssaagard.github.io/signatureforge";
+const CONFIG_BASE_URL = "https://Ampel-Technologies.github.io/signatureforge";
 
 // Cache TTL in milliseconds. Compose-time fetches use cache-busting so
 // edits propagate within seconds, but we keep an in-memory cache per
