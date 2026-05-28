@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-05-13",
+  "updated": "2026-05-28",
   "users": [
     {
       "email": "onboarding@agardresearchassociates.org",
@@ -13,20 +13,6 @@
         "email": "onboarding@agardresearchassociates.org",
         "phone": "(732) 646-6497",
         "website": "https://www.agardresearchassociates.org",
-        "address": ""
-      }
-    },
-    {
-      "email": "aagard@agardassociates.org",
-      "template": "default",
-      "fields": {
-        "displayName": "Alyssa Agard",
-        "pronouns": "",
-        "title": "CEO & President",
-        "organization": "Agard Research Associates Inc.",
-        "email": "aagard@agardassociates.org",
-        "phone": "",
-        "website": "",
         "address": ""
       }
     }
