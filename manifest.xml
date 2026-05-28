@@ -20,7 +20,7 @@
   xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides/1.0"
   xsi:type="MailApp">
 
-  <Id>fc488408-25b0-4d6c-a93a-53f0c674972b</Id>
+  <Id><f9f94a30-9bc7-41ad-90b2-e1f883ec1536/Id>
   <Version>1.0.0.0</Version>
   <ProviderName>SignatureForge</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
