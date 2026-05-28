@@ -3,22 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SignatureForge Admin</title>
-  <meta name="description" content="Centrally managed Outlook signatures, version controlled in your own GitHub repo." />
-
-  <!-- Typography: distinctive editorial pairing -->
+  <title>SignatureForge Settings</title>
+  <meta
+    name="description"
+    content="Set the mailbox title and phone number used by the SignatureForge Outlook add-in." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
     href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
     rel="stylesheet" />
-
   <link rel="stylesheet" href="styles.css" />
-  <link rel="icon" type="image/png" href="../addin/icons/icon-32.png" />
+  <link rel="icon" type="image/png" href="icon-32.png" />
+  <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
+  <script type="module" src="app.js"></script>
 </head>
 <body>
   <div id="root"></div>
-  <div class="toasts" id="toasts"></div>
-  <script type="module" src="app.js"></script>
 </body>
 </html>
