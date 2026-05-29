@@ -40,6 +40,12 @@ function renderTemplate(html, fields) {
   return out;
 }
 
+function getFirstName(displayName) {
+  const name = String(displayName ?? "").trim();
+  if (!name) return "";
+  return name.split(/\s+/)[0];
+}
+
 function getProfile() {
   const profile = window.Office?.context?.mailbox?.userProfile;
   if (!profile) return FALLBACK_PROFILE;
@@ -99,6 +105,7 @@ function updatePreview() {
   if (!frame || !state.templateHtml) return;
   const html = renderTemplate(state.templateHtml, {
     displayName: state.profile.displayName,
+    firstName: getFirstName(state.profile.displayName),
     email: state.profile.emailAddress,
     title: state.title.trim(),
     phone: state.phone.trim(),

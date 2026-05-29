@@ -39,6 +39,7 @@ async function onNewMessageComposeHandler(event) {
     const fields = loadFields();
     const rendered = renderTemplate(templateHtml, {
       displayName,
+      firstName: getFirstName(displayName),
       email: emailAddress,
       title: fields.title,
       phone: fields.phone,
@@ -80,6 +81,12 @@ function loadFields() {
     title: String(roaming.get(SETTINGS_KEYS.title) ?? ""),
     phone: String(roaming.get(SETTINGS_KEYS.phone) ?? ""),
   };
+}
+
+function getFirstName(displayName) {
+  const name = String(displayName ?? "").trim();
+  if (!name) return "";
+  return name.split(/\s+/)[0];
 }
 
 async function loadTemplate() {
