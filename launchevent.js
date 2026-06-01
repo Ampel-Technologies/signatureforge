@@ -16,6 +16,8 @@ const CACHE_TTL_MS = 60 * 1000;
 const SETTINGS_KEYS = {
   title: "signatureforge.title",
   phone: "signatureforge.phone",
+  websiteName: "signatureforge.websiteName",
+  websiteUrl: "signatureforge.websiteUrl",
 };
 
 let _cache = { template: null, fetchedAt: 0 };
@@ -43,6 +45,7 @@ async function onNewMessageComposeHandler(event) {
       email: emailAddress,
       title: fields.title,
       phone: fields.phone,
+      websiteBlock: buildWebsiteBlock(fields.websiteName, fields.websiteUrl),
     });
 
     item.body.setSignatureAsync(
@@ -80,6 +83,8 @@ function loadFields() {
   return {
     title: String(roaming.get(SETTINGS_KEYS.title) ?? ""),
     phone: String(roaming.get(SETTINGS_KEYS.phone) ?? ""),
+    websiteName: String(roaming.get(SETTINGS_KEYS.websiteName) ?? ""),
+    websiteUrl: String(roaming.get(SETTINGS_KEYS.websiteUrl) ?? ""),
   };
 }
 
@@ -87,6 +92,46 @@ function getFirstName(displayName) {
   const name = String(displayName ?? "").trim();
   if (!name) return "";
   return name.split(/\s+/)[0];
+}
+
+function normalizeWebsiteUrl(url) {
+  const value = String(url ?? "").trim();
+  if (!value) return "";
+  if (/^https?:\/\//i.test(value)) return value;
+  return `https://${value}`;
+}
+
+function getWebsiteLabel(name, url) {
+  const label = String(name ?? "").trim();
+  if (label) return label;
+  const normalized = normalizeWebsiteUrl(url);
+  if (!normalized) return "";
+  try {
+    return new URL(normalized).hostname.replace(/^www\./i, "");
+  } catch (_) {
+    return normalized.replace(/^https?:\/\//i, "");
+  }
+}
+
+function buildWebsiteBlock(name, url) {
+  const label = getWebsiteLabel(name, url);
+  if (!label) return "";
+  const normalizedUrl = normalizeWebsiteUrl(url);
+  if (!normalizedUrl) {
+    return `
+      <br>
+      <span style="color:#252831;">
+        ${escapeHtml(label)}
+      </span>
+    `;
+  }
+  return `
+      <br>
+      <a href="${escapeHtml(normalizedUrl)}"
+         style="text-decoration:underline;">
+        ${escapeHtml(label)}
+      </a>
+  `;
 }
 
 async function loadTemplate() {

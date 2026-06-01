@@ -1,6 +1,8 @@
 const SETTINGS_KEYS = {
   title: "signatureforge.title",
   phone: "signatureforge.phone",
+  websiteName: "signatureforge.websiteName",
+  websiteUrl: "signatureforge.websiteUrl",
 };
 
 const FALLBACK_PROFILE = {
@@ -16,6 +18,8 @@ const state = {
   templateHtml: "",
   title: "",
   phone: "",
+  websiteName: "",
+  websiteUrl: "",
   saving: false,
   status: "",
   statusType: "neutral",
@@ -46,6 +50,46 @@ function getFirstName(displayName) {
   return name.split(/\s+/)[0];
 }
 
+function normalizeWebsiteUrl(url) {
+  const value = String(url ?? "").trim();
+  if (!value) return "";
+  if (/^https?:\/\//i.test(value)) return value;
+  return `https://${value}`;
+}
+
+function getWebsiteLabel(name, url) {
+  const label = String(name ?? "").trim();
+  if (label) return label;
+  const normalized = normalizeWebsiteUrl(url);
+  if (!normalized) return "";
+  try {
+    return new URL(normalized).hostname.replace(/^www\./i, "");
+  } catch (_) {
+    return normalized.replace(/^https?:\/\//i, "");
+  }
+}
+
+function buildWebsiteBlock(name, url) {
+  const label = getWebsiteLabel(name, url);
+  if (!label) return "";
+  const normalizedUrl = normalizeWebsiteUrl(url);
+  if (!normalizedUrl) {
+    return `
+      <br>
+      <span style="color:#252831;">
+        ${escapeHtml(label)}
+      </span>
+    `;
+  }
+  return `
+      <br>
+      <a href="${escapeHtml(normalizedUrl)}"
+         style="text-decoration:underline;">
+        ${escapeHtml(label)}
+      </a>
+  `;
+}
+
 function getProfile() {
   const profile = window.Office?.context?.mailbox?.userProfile;
   if (!profile) return FALLBACK_PROFILE;
@@ -57,12 +101,14 @@ function getProfile() {
 
 function getStoredSettings() {
   if (!window.Office?.context?.roamingSettings) {
-    return { title: "", phone: "" };
+    return { title: "", phone: "", websiteName: "", websiteUrl: "" };
   }
   const roaming = window.Office.context.roamingSettings;
   return {
     title: String(roaming.get(SETTINGS_KEYS.title) ?? ""),
     phone: String(roaming.get(SETTINGS_KEYS.phone) ?? ""),
+    websiteName: String(roaming.get(SETTINGS_KEYS.websiteName) ?? ""),
+    websiteUrl: String(roaming.get(SETTINGS_KEYS.websiteUrl) ?? ""),
   };
 }
 
@@ -73,6 +119,8 @@ async function saveSettings() {
   const roaming = window.Office.context.roamingSettings;
   roaming.set(SETTINGS_KEYS.title, state.title.trim());
   roaming.set(SETTINGS_KEYS.phone, state.phone.trim());
+  roaming.set(SETTINGS_KEYS.websiteName, state.websiteName.trim());
+  roaming.set(SETTINGS_KEYS.websiteUrl, state.websiteUrl.trim());
 
   await new Promise((resolve, reject) => {
     roaming.saveAsync((result) => {
@@ -109,6 +157,7 @@ function updatePreview() {
     email: state.profile.emailAddress,
     title: state.title.trim(),
     phone: state.phone.trim(),
+    websiteBlock: buildWebsiteBlock(state.websiteName, state.websiteUrl),
   });
   frame.srcdoc = `<!doctype html><html><head><meta charset="utf-8" />
     <style>
@@ -158,6 +207,20 @@ function render() {
             <input id="phone" value="${escapeHtml(state.phone)}" placeholder="+31 6 1234 5678" />
           </label>
 
+          <label class="field">
+            <span>Website name</span>
+            <input id="websiteName" value="${escapeHtml(state.websiteName)}" placeholder="Website" />
+          </label>
+
+          <label class="field">
+            <span>Website URL</span>
+            <input id="websiteUrl" value="${escapeHtml(state.websiteUrl)}" placeholder="ampel.tech" />
+          </label>
+
+          <p class="hint">
+            Optional. Enter a label and a domain like <code>ampel.tech</code>; the app adds <code>https://</code> automatically.
+          </p>
+
           <div class="actions">
             <button class="btn primary" id="saveBtn" ${saveDisabled ? "disabled" : ""}>Save settings</button>
           </div>
@@ -181,6 +244,8 @@ function render() {
 
   const titleInput = document.getElementById("title");
   const phoneInput = document.getElementById("phone");
+  const websiteNameInput = document.getElementById("websiteName");
+  const websiteUrlInput = document.getElementById("websiteUrl");
   const saveBtn = document.getElementById("saveBtn");
 
   titleInput?.addEventListener("input", () => {
@@ -189,6 +254,14 @@ function render() {
   });
   phoneInput?.addEventListener("input", () => {
     state.phone = phoneInput.value;
+    updatePreview();
+  });
+  websiteNameInput?.addEventListener("input", () => {
+    state.websiteName = websiteNameInput.value;
+    updatePreview();
+  });
+  websiteUrlInput?.addEventListener("input", () => {
+    state.websiteUrl = websiteUrlInput.value;
     updatePreview();
   });
   saveBtn?.addEventListener("click", onSave);
@@ -203,6 +276,8 @@ async function onSave() {
   if (state.saving) return;
   state.title = document.getElementById("title")?.value ?? "";
   state.phone = document.getElementById("phone")?.value ?? "";
+  state.websiteName = document.getElementById("websiteName")?.value ?? "";
+  state.websiteUrl = document.getElementById("websiteUrl")?.value ?? "";
 
   state.saving = true;
   render();
@@ -223,6 +298,8 @@ async function init() {
   const settings = getStoredSettings();
   state.title = settings.title;
   state.phone = settings.phone;
+  state.websiteName = settings.websiteName;
+  state.websiteUrl = settings.websiteUrl;
   state.officeReady = !!window.Office?.context?.roamingSettings;
 
   try {
@@ -234,6 +311,7 @@ async function init() {
         <tr><td style="font-size:14px;color:#5a5650;padding-bottom:10px;">{{email}}</td></tr>
         <tr><td style="font-size:13px;color:#5a5650;">{{title}}</td></tr>
         <tr><td style="font-size:13px;color:#5a5650;">{{phone}}</td></tr>
+        <tr><td style="font-size:13px;color:#5a5650;">{{{websiteBlock}}}</td></tr>
       </table>
     `;
     setStatus(`Preview fallback loaded: ${err.message}`, "warn");
